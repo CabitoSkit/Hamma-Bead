@@ -12,13 +12,6 @@
     .size-buttons button {
       margin: 5px;
       padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      background-color: lightgray;
-    }
-    .size-buttons button.active {
-      background-color: green;
-      color: white;
     }
     #llavero-options {
       display: none;
@@ -46,10 +39,10 @@
 
   <h3>Selecciona el tamaño:</h3>
   <div class="size-buttons">
-    <button onclick="selectSize('chico', this)">Chico</button>
-    <button onclick="selectSize('medio', this)">Medio</button>
-    <button onclick="selectSize('grande', this)">Grande</button>
-    <button onclick="selectSize('taza', this)">Taza</button>
+    <button onclick="selectSize('chico')">Chico</button>
+    <button onclick="selectSize('medio')">Medio</button>
+    <button onclick="selectSize('grande')">Grande</button>
+    <button onclick="selectSize('taza')">Taza</button>
   </div>
 
   <div id="llavero-options">
@@ -61,6 +54,7 @@
   <script>
     const imageInput = document.getElementById('imageInput');
     const previewImage = document.getElementById('previewImage');
+    const llaveroOptions = document.getElementById('llavero-options');
 
     imageInput.addEventListener('change', function () {
       const file = imageInput.files[0];
@@ -68,22 +62,17 @@
         const reader = new FileReader();
         reader.onload = function (e) {
           previewImage.src = e.target.result;
-        };
+        }
         reader.readAsDataURL(file);
       }
     });
 
-    function selectSize(size, button) {
-      // Quita la clase "active" de todos los botones
-      document.querySelectorAll('.size-buttons button').forEach(btn => {
-        btn.classList.remove('active');
-      });
-
-      // Agrega la clase "active" al botón seleccionado
-      button.classList.add('active');
-
-      // Muestra u oculta la opción de llavero según el tamaño seleccionado
-      document.getElementById('llavero-options').style.display = size === 'chico' ? 'block' : 'none';
+    function selectSize(size) {
+      if (size === 'chico') {
+        llaveroOptions.style.display = 'block';
+      } else {
+        llaveroOptions.style.display = 'none';
+      }
     }
   </script>
 </body>
